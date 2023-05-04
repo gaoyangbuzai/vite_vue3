@@ -16,7 +16,13 @@ export default createStore({
   actions: {
     increment(context) {
       context.commit('increment')
-    }
+    },
+    // 退出系统
+    LogOut() {
+      return new Promise<void>((resolve) => {
+        resolve();
+      })
+    },
   },
   getters: {
     doubleCount(state: typeof defaultState) {

@@ -4,7 +4,7 @@ import {
   RouteRecordRaw,
   createWebHistory
 } from 'vue-router';
-import Index from '@/views/index/index.vue';
+import Index from '../views/index/index.vue';
 
 const routes:Array<RouteRecordRaw>=[{
   path:'/',
