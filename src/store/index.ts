@@ -1,7 +1,7 @@
-import { createStore } from 'vuex';
+import { createStore } from 'vuex'
 
 const defaultState = {
-  count: 0,
+  count: 0
 }
 
 export default createStore({
@@ -10,23 +10,23 @@ export default createStore({
   },
   mutations: {
     increment(state: typeof defaultState) {
-      state.count += 1;
-    },
+      state.count += 1
+    }
   },
   actions: {
     increment(context) {
       context.commit('increment')
     },
     // 退出系统
-    LogOut() {
-      return new Promise<void>((resolve) => {
-        resolve();
+    async LogOut() {
+      await new Promise<void>((resolve) => {
+        resolve()
       })
-    },
+    }
   },
   getters: {
     doubleCount(state: typeof defaultState) {
-      return state.count * 2;
+      return state.count * 2
     }
   }
 })
