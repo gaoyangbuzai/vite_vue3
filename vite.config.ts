@@ -15,14 +15,6 @@ export default defineConfig({
   server: {
     port: 4000,
     open: true,
-    cors: true,
-    proxy: {
-      [process.env.VUE_APP_BASE_API]: {
-        target: 'http://58.87.122.140:8098',
-        changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(process.env.VUE_APP_BASE_API, '')
-      }
-    }
+    cors: true
   }
 })

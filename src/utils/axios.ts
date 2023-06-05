@@ -1,7 +1,5 @@
 import Axios from 'axios'
 import { ElMessage, ElNotification, ElMessageBox } from 'element-plus'
-import Cookies from 'js-cookie'
-import cache from './cache'
 import { errorCode } from './errorCode'
 import store from '../store/index'
 
@@ -10,45 +8,12 @@ Axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 const isRelogin = { show: false }
 
 const service = Axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: 'https://www.fastmock.site/mock/7c57f1519f6b660fe7702221e5061f30/vue3',
   timeout: 20000 // 请求超时 20s
 })
-const cookieToken = Cookies.get('Authorization')
 service.interceptors.request.use(
   async (config) => {
-    // 是否需要设置 token
-    const noToken = config.headers?.isToken === false
-    // 是否需要防止数据重复提交
-    const isRepeatSubmit = config?.headers?.repeatSubmit === false
-    if (cookieToken !== null && cookieToken !== undefined && !noToken) {
-      config.headers.Authorization = 'Bearer ' + cookieToken // 让每个请求携带自定义token 请根据实际情况自行修改
-    }
-    if (!isRepeatSubmit && (config.method === 'post' || config.method === 'put')) {
-      const requestObj = {
-        url: config.url,
-        data: typeof config.data === 'object' ? JSON.stringify(config.data) : config.data,
-        time: new Date().getTime()
-      }
-      const sessionObj = cache.session.getJSON('sessionObj')
-      if (sessionObj === undefined || sessionObj === null || sessionObj === '') {
-        cache.session.setJSON('sessionObj', requestObj)
-      } else {
-        const sUrl = sessionObj.url // 请求地址
-        const sData = sessionObj.data // 请求数据
-        const sTime = sessionObj.time // 请求时间
-        const interval = 1000 // 间隔时间(ms)，小于此时间视为重复提交
-        if (
-          sData === requestObj.data &&
-          requestObj.time - sTime < interval &&
-          sUrl === requestObj.url
-        ) {
-          const message = '数据正在处理，请勿重复提交'
-          return await Promise.reject(new Error(message))
-        } else {
-          cache.session.setJSON('sessionObj', requestObj)
-        }
-      }
-    }
+    config.headers.Authorization = localStorage.getItem('Authorization')
     return config
   },
   (err) => {

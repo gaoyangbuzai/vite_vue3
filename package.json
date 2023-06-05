@@ -10,10 +10,15 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*.{vue,js,ts}": ["eslint --fix", "git add"]
+    "src/**/*.{vue,js,ts}": [
+      "eslint --fix",
+      "git add ."
+    ]
   },
   "dependencies": {
+    "@typescript-eslint/parser": "^5.59.8",
     "axios": "^1.4.0",
+    "babel-eslint": "^10.1.0",
     "element-plus": "^2.3.4",
     "js-cookie": "^3.0.5",
     "vue": "^3.2.47",

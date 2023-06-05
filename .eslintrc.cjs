@@ -15,5 +15,7 @@ module.exports = {
     project: ['./tsconfig.json']
   },
   plugins: ['vue'],
-  rules: {}
+  rules: {
+    '@typescript-eslint/promise-function-async': 'off'
+  }
 }
